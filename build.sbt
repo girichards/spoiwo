@@ -31,6 +31,8 @@ lazy val commonSettings = Seq(
     else
       Some("releases"  at nexus + "service/local/staging/deploy/maven2")
   },
+
+
   pomExtra := pomDetails,
   libraryDependencies ++= Seq(
     "org.apache.poi" % "poi" % "3.11",
@@ -38,7 +40,7 @@ lazy val commonSettings = Seq(
     "commons-logging" % "commons-logging" % "1.2",
     "joda-time" % "joda-time" % "2.7",
     "org.joda" % "joda-convert" % "1.7",
-    "org.scalatest" % "scalatest_2.10" % "2.2.4"
+    "org.scalatest" % "scalatest_2.10" % "2.2.4" % "test"
   )
 )
 
@@ -46,7 +48,7 @@ lazy val spoiwo = (project in file("."))
   .settings(commonSettings : _*)
   .settings(
     name := "spoiwo",
-    version := "1.0.7"
+    version := "1.0.7a"
   )
 
 lazy val examples = (project in file("examples"))
@@ -56,3 +58,8 @@ lazy val examples = (project in file("examples"))
     name := "spoiwo-examples",
     version := "1.0.0"
   )
+
+
+
+
+

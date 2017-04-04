@@ -15,6 +15,7 @@ object CellValueType {
   implicit object DateTimeWitness extends CellValueType[DateTime]
   implicit object LocalDateWitness extends CellValueType[LocalDate]
   implicit object CalendarWitness extends CellValueType[Calendar]
+  implicit object HyperLinkUrlWitness extends CellValueType[HyperLinkUrl]
 }
 
 object Cell {
@@ -40,6 +41,7 @@ object Cell {
       case v : DateTime => DateCell(v.toDate, indexOption, styleOption, styleInheritance)
       case v : LocalDate => DateCell(v.toDate, indexOption, styleOption, styleInheritance)
       case v : Calendar => CalendarCell(v, indexOption, styleOption, styleInheritance)
+      case v : HyperLinkUrl => HyperLinkUrlCell(v, indexOption, styleOption, styleInheritance)
     }
   }
 }
@@ -84,6 +86,16 @@ sealed trait Cell {
   }
 
 
+}
+
+case class HyperLinkUrl(text: String, address: String)
+
+case class HyperLinkUrlCell private[model](value: HyperLinkUrl, index: Option[Int], style: Option[CellStyle], styleInheritance : CellStyleInheritance)
+  extends Cell {
+  def copyCell(value : Any = value, index : Option[Int] = index, style : Option[CellStyle] = style) : Cell =
+    copy(value.asInstanceOf[HyperLinkUrl], index, style)
+
+  protected def valueToString() = "\"" + value + "\""
 }
 
 case class StringCell private[model](value: String, index: Option[Int], style: Option[CellStyle], styleInheritance : CellStyleInheritance)
